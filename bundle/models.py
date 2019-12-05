@@ -19,6 +19,6 @@ class PackageUnit(models.Model):
 
 
 class Package(models.Model):
-    sender = models.ForeignKey("User", related_name="packages", on_delete=models.CASCADE)
-    receiver = models.ForeignKey("User", related_name="packages", on_delete=models.PROTECT)
+    sender = models.ForeignKey("shared.User", related_name="sender_packages", on_delete=models.CASCADE)
+    receiver = models.ForeignKey("shared.User", related_name="receiver_packages", on_delete=models.PROTECT)
     sent_datetime = models.DateTimeField(default=timezone.now)
