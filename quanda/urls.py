@@ -15,11 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from rest_framework.routers import DefaultRouter
+from shared.views import LogInViewSet, SignUpViewSet
 
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('forum/', include('forum.urls')),
-    path('bundle/', include('bundle.urls')),
-    path('release/', include('release.urls')),
-]
+router = DefaultRouter()
+router.register(r'login', LogInViewSet, basename="login")
+router.register(r'signup', SignUpViewSet, basename="signup")
+urlpatterns = router.urls
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('forum/', include('forum.urls')),
+#     path('bundle/', include('bundle.urls')),
+#     path('release/', include('release.urls')),
+# ]
