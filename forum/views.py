@@ -1,6 +1,8 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from rest_framework import viewsets
+from rest_framework.response import Response
 
 
-def index(request):
-    return HttpResponse("Hello world! You are at the forum index.")
+class ForumViewSet(viewsets.ViewSet):
+    def list(self, request):
+        response = "forum response"
+        return Response(response)

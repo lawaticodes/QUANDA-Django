@@ -1,6 +1,8 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from rest_framework import viewsets
+from rest_framework.response import Response
 
 
-def index(request):
-    return HttpResponse("Hello world! You are at the bundle index.")
+class BundleViewSet(viewsets.ViewSet):
+    def list(self, request):
+        response = "bundle response"
+        return Response(response)
