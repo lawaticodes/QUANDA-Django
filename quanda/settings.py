@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'quanda.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'quanda_db_1',
+        'NAME': 'quanda_db_2',
         'USER': 'postgres',
         'PASSWORD': 'FORpostgres1.',
         'HOST': '127.0.0.1',

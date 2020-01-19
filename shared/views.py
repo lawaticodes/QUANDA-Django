@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -23,15 +24,12 @@ class SignUpViewSet(viewsets.ViewSet):
             return Response({"status": "fail", "message": "Your passwords must be the same."})
 
         try:
-            user = User.objects.create(username=username, password=password1, email=email)
-            user.save()
+            User.objects.create(username=username, password=password1, email=email)
             status = "success"
             message = "Sign up successful. Please confirm your email address to access your new account."
-        except:
-            pass
-            # catch all validation errors and save relevant message
+        except ValidationError as e:
             status = "fail"
-            message = "Did not pass validation. Sign up not successful."
+            message = f"Sign up unsuccessful. {e}"
 
         response = {"status": status, "message": message}
         return Response(response)

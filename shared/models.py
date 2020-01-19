@@ -3,11 +3,17 @@ from django.utils import timezone
 
 
 class User(models.Model):
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
     username = models.CharField(max_length=30)
     email = models.EmailField(max_length=50)
     password = models.CharField(max_length=30)
+
+    def clean(self):
+        pass
+        # TODO: Add additional validation here.
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super().save(*args, **kwargs)
 
 
 class Question(models.Model):
