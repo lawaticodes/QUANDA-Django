@@ -21,15 +21,12 @@ class SignUpViewSet(viewsets.ViewSet):
         email = params.get("email", "")
 
         if password1 != password2:
-            return Response({"status": "fail", "message": "Your passwords must be the same."})
+            return Response(status=422, data={"message": "Your passwords must be the same."})
 
         try:
             User.objects.create(username=username, password=password1, email=email)
-            status = "success"
             message = "Sign up successful. Please confirm your email address to access your new account."
+            return Response(status=200, data={"message": message})
         except ValidationError as e:
-            status = "fail"
             message = f"Sign up unsuccessful. {e}"
-
-        response = {"status": status, "message": message}
-        return Response(response)
+            return Response(status=422, data={"message": message})
