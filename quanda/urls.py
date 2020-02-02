@@ -17,7 +17,7 @@ from bundle.views import BundleViewSet
 from forum.views import ForumViewSet
 from release.views import ReleaseViewSet
 from rest_framework.routers import DefaultRouter
-from shared.views import LogInViewSet, SignUpViewSet
+from shared.views import LogInViewSet, SignUpViewSet, UserViewSet
 
 
 router = DefaultRouter()
@@ -26,4 +26,5 @@ router.register(r"forum", ForumViewSet, basename="forum")
 router.register(r"login", LogInViewSet, basename="login")
 router.register(r"release", ReleaseViewSet, basename="release")
 router.register(r"signup", SignUpViewSet, basename="signup")
+router.register(r"user", UserViewSet, basename="user")
 urlpatterns = router.urls

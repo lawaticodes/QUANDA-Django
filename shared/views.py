@@ -3,6 +3,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from shared.models import User
+from shared.serializers import UserSerializer
 
 
 class LogInViewSet(viewsets.ViewSet):
@@ -30,3 +31,8 @@ class SignUpViewSet(viewsets.ViewSet):
         except ValidationError as e:
             message = f"Sign up unsuccessful. {e}"
             return Response(status=422, data={"message": message})
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
