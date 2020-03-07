@@ -28,3 +28,5 @@ router.register(r"release", ReleaseViewSet, basename="release")
 router.register(r"signup", SignUpViewSet, basename="signup")
 router.register(r"user", UserViewSet, basename="user")
 urlpatterns = router.urls
+
+MAIN_URL = "http://127.0.0.1:8000"
