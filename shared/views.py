@@ -1,3 +1,4 @@
+from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from rest_framework import viewsets
 from rest_framework.decorators import action
@@ -25,16 +26,22 @@ class SignUpViewSet(viewsets.ViewSet):
             return Response(status=422, data={"message": "Sign up unsuccessful. Your passwords must be the same."})
 
         try:
+            validate_password(password1)
             User.objects.create(username=username, password=password1, email=email)
-            success_message = "Sign up successful. Please confirm your email address to access your new account."
+            success_message = "Sign up successful. Please check your email account and click on the confirmation " \
+                              "link to access your new account."
+
             return Response(status=200, data={"message": success_message})
         except ValidationError as e:
-            error_message = "Sign up unsuccessful."
+            error_message = "Sign up unsuccessful. "
 
-            for index, (key, value) in enumerate(e.message_dict.items(), start=1):
-                if index == 1:
-                    error_message += " The errors are as follows:"
-                error_message += f" {index}) {key}: {', '.join(value)}"
+            if hasattr(e, "message_dict"):
+                for index, (key, value) in enumerate(e.message_dict.items(), start=1):
+                    if index == 1:
+                        error_message += "The errors are as follows: "
+                    error_message += f"{index}) {key}: {', '.join(value)} "
+            else:
+                error_message += ", ".join(e.messages)
 
             return Response(status=422, data={"message": error_message})
 
