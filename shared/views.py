@@ -1,5 +1,6 @@
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
+from django.http import HttpResponseRedirect
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -44,6 +45,15 @@ class SignUpViewSet(viewsets.ViewSet):
                 error_message += ", ".join(e.messages)
 
             return Response(status=422, data={"message": error_message})
+
+    @action(methods=["get"], detail=True)
+    def confirm_user(self, request, pk=None):
+        from quanda.urls import REACT_MAIN_URL
+
+        user = User.objects.get(id=pk)
+        user.confirmed = True
+        user.save()
+        return HttpResponseRedirect(REACT_MAIN_URL)
 
 
 class UserViewSet(viewsets.ModelViewSet):

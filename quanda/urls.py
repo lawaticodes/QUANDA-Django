@@ -29,4 +29,5 @@ router.register(r"signup", SignUpViewSet, basename="signup")
 router.register(r"user", UserViewSet, basename="user")
 urlpatterns = router.urls
 
-MAIN_URL = "http://127.0.0.1:8000"
+DJANGO_MAIN_URL = "http://127.0.0.1:8000/"
+REACT_MAIN_URL = "http://127.0.0.1:3000/"
