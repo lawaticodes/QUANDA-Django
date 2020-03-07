@@ -26,11 +26,17 @@ class SignUpViewSet(viewsets.ViewSet):
 
         try:
             User.objects.create(username=username, password=password1, email=email)
-            message = "Sign up successful. Please confirm your email address to access your new account."
-            return Response(status=200, data={"message": message})
+            success_message = "Sign up successful. Please confirm your email address to access your new account."
+            return Response(status=200, data={"message": success_message})
         except ValidationError as e:
-            message = f"Sign up unsuccessful. {e}"
-            return Response(status=422, data={"message": message})
+            error_message = "Sign up unsuccessful."
+
+            for index, (key, value) in enumerate(e.message_dict.items(), start=1):
+                if index == 1:
+                    error_message += " The errors are as follows:"
+                error_message += f" {index}) {key}: {', '.join(value)}"
+
+            return Response(status=422, data={"message": error_message})
 
 
 class UserViewSet(viewsets.ModelViewSet):
