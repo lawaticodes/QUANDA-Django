@@ -22,7 +22,7 @@ class SignUpViewSet(viewsets.ViewSet):
         email = params.get("email", "")
 
         if password1 != password2:
-            return Response(status=422, data={"message": "Your passwords must be the same."})
+            return Response(status=422, data={"message": "Sign up unsuccessful. Your passwords must be the same."})
 
         try:
             User.objects.create(username=username, password=password1, email=email)
