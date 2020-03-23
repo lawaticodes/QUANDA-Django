@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 
@@ -10,8 +11,8 @@ class User(models.Model):
     logged_in = models.BooleanField(default=False)
 
     def clean(self):
-        pass
-        # TODO: Add additional validation here.
+        if User.objects.filter(email=self.email).count():
+            raise ValidationError("An account for this email already exists.")
 
     def save(self, *args, **kwargs):
         self.full_clean()

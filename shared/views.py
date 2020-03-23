@@ -17,11 +17,15 @@ class LogInViewSet(viewsets.ViewSet):
 
         try:
             user = User.objects.get(email=email, password=password)
-            user.logged_in = True
-            user.save()
-            return Response(status=200, data={"message": "Log in successful."})
+            if user.confirmed:
+                user.logged_in = True
+                user.save()
+                return Response(status=200, data={"message": "Log in successful."})
+            else:
+                return Response(status=422, data={"message": "Please check your email and click the confirmation link "
+                                                             "to complete your registration."})
         except User.DoesNotExist:
-            return Response(status=422, data={"message": "Incorrect email or password i."})
+            return Response(status=422, data={"message": "Incorrect email or password."})
 
 
 class SignUpViewSet(viewsets.ViewSet):
