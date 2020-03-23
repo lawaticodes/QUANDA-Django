@@ -9,9 +9,19 @@ from shared.serializers import UserSerializer
 
 
 class LogInViewSet(viewsets.ViewSet):
-    def list(self, request):
-        response = "log in response"
-        return Response(response)
+    @action(methods=["get"], detail=False)
+    def log_in(self, request):
+        params = request.query_params
+        email = params.get("email", "")
+        password = params.get("password", "")
+
+        try:
+            user = User.objects.get(email=email, password=password)
+            user.logged_in = True
+            user.save()
+            return Response(status=200, data={"message": "Log in successful."})
+        except User.DoesNotExist:
+            return Response(status=422, data={"message": "Incorrect email or password i."})
 
 
 class SignUpViewSet(viewsets.ViewSet):
