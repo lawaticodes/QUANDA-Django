@@ -18,7 +18,7 @@ class SignUpViewSet(viewsets.ViewSet):
     @action(methods=["post"], detail=False)
     def create_user(self, request):
         params = request.query_params
-        username = params.get("username", "")
+        name = params.get("name", "")
         password1 = params.get("password1", "")
         password2 = params.get("password2", "")
         email = params.get("email", "")
@@ -28,7 +28,7 @@ class SignUpViewSet(viewsets.ViewSet):
 
         try:
             validate_password(password1)
-            User.objects.create(username=username, password=password1, email=email)
+            User.objects.create(name=name, password=password1, email=email)
             success_message = "Sign up successful. Please check your email account and click on the confirmation " \
                               "link to access your new account."
 

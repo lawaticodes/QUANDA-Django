@@ -11,7 +11,7 @@ from quanda.urls import DJANGO_MAIN_URL
 def send_confirmation_email(sender, instance, created, **kwargs):
     if created:
         confirmation_link = f"{DJANGO_MAIN_URL}signup/{instance.id}/confirm_user/"
-        email_body = f"Hi {instance.username}, it's great that you want to be a part of Quanda.\nPlease click the " \
+        email_body = f"Hi {instance.name}, it's great that you want to be a part of Quanda.\nPlease click the " \
                      f"following link to complete your registration: {confirmation_link}."
         email = EmailMessage(
             "Quanda registration confirmation",
