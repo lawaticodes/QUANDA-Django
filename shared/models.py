@@ -10,14 +10,6 @@ class User(models.Model):
     confirmed = models.BooleanField(default=False)
     logged_in = models.BooleanField(default=False)
 
-    def clean(self):
-        if User.objects.filter(email=self.email).count():
-            raise ValidationError("An account for this email already exists.")
-
-    def save(self, *args, **kwargs):
-        self.full_clean()
-        super().save(*args, **kwargs)
-
 
 class Question(models.Model):
     text = models.CharField(max_length=2000)

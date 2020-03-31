@@ -37,6 +37,9 @@ class SignUpViewSet(viewsets.ViewSet):
         password2 = params.get("password2", "")
         email = params.get("email", "")
 
+        if User.objects.filter(email=email).exists():
+            return Response(status=422, data={"message": "Sign up unsuccessful. An account for this email already exists."})
+
         if password1 != password2:
             return Response(status=422, data={"message": "Sign up unsuccessful. Your passwords must be the same."})
 
