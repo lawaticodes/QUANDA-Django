@@ -4,8 +4,8 @@ from django.http import HttpResponseRedirect
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from shared.models import User
-from shared.serializers import UserSerializer
+from main_app.models import User
+from main_app.serializers import UserSerializer
 
 
 class LogInViewSet(viewsets.ViewSet):

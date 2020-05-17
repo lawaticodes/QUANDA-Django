@@ -2,7 +2,7 @@ from django.core.mail import EmailMessage
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from shared.models import User
+from main_app.models import User
 from quanda.settings import EMAIL_HOST
 from quanda.urls import DJANGO_MAIN_URL
 

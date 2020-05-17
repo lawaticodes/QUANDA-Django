@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from rest_framework.routers import DefaultRouter
-from shared.views import LogInViewSet, SignUpViewSet, UserViewSet
+from main_app.views import LogInViewSet, SignUpViewSet, UserViewSet
 
 
 router = DefaultRouter()
